@@ -21,7 +21,7 @@ from rest_framework.generics import (
     RetrieveUpdateDestroyAPIView
     )
 
-from .serializers import CommentSerializer
+from .serializers import CommentSerializer, CommentDetailSerializer
 
 # Create your views here.
 
@@ -37,8 +37,8 @@ class CommentListView(ListAPIView):
 # 		serializer.save(user=self.request.user)
 
 
-class CommentRetrieveUpdateDestroyView(RetrieveAPIView):
-	serializer_class = CommentSerializer
+class CommentDetailView(RetrieveAPIView):
+	serializer_class = CommentDetailSerializer
 	queryset = Comment.objects.all()
 
 	# def perform_update(self, serializer):

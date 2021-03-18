@@ -8,8 +8,7 @@ from django.db.models import Sum
 from django.shortcuts import reverse
 from django_countries.fields import CountryField
 from multiselectfield import MultiSelectField
-from django.core.validators import MaxValueValidator, MinValueValidator
-import statistics
+from django.contrib.contenttypes.models import ContentType
 # Create your models here.
 
 TAGS = (
@@ -49,6 +48,16 @@ class Product(models.Model):
 	@property	
 	def total_upvotes(self):
 		return self.upvote.count()
+
+	# @property
+	# def comments(self):
+	# 	qs = Comment.objects.filter(product=self)
+	# 	return qs
+	# @property
+	# def total_comments(self):
+	# 	instance = self
+	# 	qs = Comment.objects.filter_by_instance(instance)
+	# 	return qs.count()
 
 
 # class Reviews(models.Model):
