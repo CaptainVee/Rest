@@ -1,1 +1,1 @@
-web: gunicorn restapi-4u.wsgi
+web: gunicorn Rest.wsgi
