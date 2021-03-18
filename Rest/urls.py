@@ -18,6 +18,7 @@ from django.urls import path, include
 from user.views import  UserDetailView
 from django.conf import settings
 from django.conf.urls.static import static
+from rest_framework_swagger.views import get_swagger_view
 from rest_auth import views as rest_view
 
 
@@ -32,6 +33,7 @@ urlpatterns = [
     path('rest-auth/registration/', include('rest_auth.registration.urls')),    
     path('password-reset-confirm/<uidb64>/<token>/', rest_view.PasswordResetConfirmView.as_view(),
     	name='password_reset_confirm'),
+    path('api/docs/', get_swagger_view(title='rest')),
 
 ]
 

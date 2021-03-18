@@ -7,6 +7,6 @@ from .views import ProductListView, ProductCreateView, ProductRetrieveUpdateDest
 urlpatterns = [
     path('', ProductListView.as_view(), name='home'),
     path('product/create/', ProductCreateView.as_view(), name='create-product'),
-    path('<int:pk>/detail', ProductRetrieveUpdateDestroyView.as_view(), name='product-detail'),
+    path('product/<int:pk>/detail', ProductRetrieveUpdateDestroyView.as_view(), name='product-detail'),
     path('upvote/<int:pk>', Upvote.as_view(), name='upvote'),
 ]
