@@ -4,19 +4,19 @@ This is the documentation for the rest API
 
 The various endpoint which you can call are ....
 
-1. register/
+1. register/ \
       POST: {
-          "username": "string",
-          "email": "string",
-          "email2": "string",
-          "password": "string"
-        }
+          "username": "string"  \
+          "email": "string"  \
+          "email2": "string"  \
+          "password": "string"\
+        }\
   returns the username, email and password.
   
-2. login/
+2. login/ \
     POST: {
-      "email": "string"
-      "username": "string",
+      "email": "string"\
+      "username": "string",\
       "password": "string"
     }
     
