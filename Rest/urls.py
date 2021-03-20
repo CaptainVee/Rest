@@ -15,12 +15,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from user.views import  UserDetailView
+from user.views import  UserDetailView, UserCreateAPIView, UserLoginAPIView
 from django.conf import settings
 from django.conf.urls.static import static
 from rest_framework_swagger.views import get_swagger_view
 from rest_auth import views as rest_view
-
+from rest_framework.authtoken.views import obtain_auth_token
 
 
 
@@ -30,9 +30,12 @@ urlpatterns = [
     path('rest-auth/', include('rest_auth.urls')),
     path('admin/', admin.site.urls),
     path('profile/<int:pk>/', UserDetailView.as_view(), name='profile'),
-    path('rest-auth/registration/', include('rest_auth.registration.urls')),    
-    path('password-reset-confirm/<uidb64>/<token>/', rest_view.PasswordResetConfirmView.as_view(),
-    	name='password_reset_confirm'),
+    # path('login/', UserLoginAPIView.as_view(), name='login'),
+    path('register/', UserCreateAPIView.as_view(), name='register'),
+    path('login/', obtain_auth_token, name='obtain-token'),
+    # path('rest-auth/registration/', include('rest_auth.registration.urls')),    
+    # path('password-reset-confirm/<uidb64>/<token>/', rest_view.PasswordResetConfirmView.as_view(),
+    # 	name='password_reset_confirm'),
     path('api/docs/', get_swagger_view(title='rest')),
 
 ]
