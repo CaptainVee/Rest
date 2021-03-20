@@ -1,5 +1,6 @@
 # Rest
 
+## please view in raw mode
 This is the documentation for the rest API
 
 The various endpoint which you can call are ....
