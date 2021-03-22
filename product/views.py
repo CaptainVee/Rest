@@ -31,6 +31,11 @@ from django.http import HttpResponseRedirect
 class ProductListView(ListAPIView):
 	serializer_class = ProductListSerializer
 	queryset = Product.objects.all()
+	def get(self, request, *args, **kwargs):
+		queryset = Product.objects.all()
+		queryset = sorted(queryset, reverse=True, key=lambda product: product.total_upvotes)
+		serializer = ProductListSerializer(queryset, many=True)
+		return Response(serializer.data)
 
 class ProductCreateView(CreateAPIView):
 	serializer_class = ProductDetailSerializer

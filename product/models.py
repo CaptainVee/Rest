@@ -49,6 +49,8 @@ class Product(models.Model):
 	def total_upvotes(self):
 		return self.upvote.count()
 
+
+
 	# @property
 	# def comments(self):
 	# 	qs = Comment.objects.filter(product=self)

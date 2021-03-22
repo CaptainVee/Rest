@@ -9,8 +9,6 @@ from rest_framework import serializers
 from django.contrib.auth import get_user_model
 
 
-User = get_user_model()
-
 from rest_framework.serializers import (
     CharField,
     EmailField,
@@ -37,7 +35,7 @@ class UserDetailSerializer(ModelSerializer):
 		return (obj.user.email)
 
 	def get_product(self, obj):
-		product_queryset = Product.objects.filter(author=obj.id)
+		product_queryset = Product.objects.filter(user=obj.id)
 		product = ProductListSerializer(product_queryset, many=True).data
 		return product
 
