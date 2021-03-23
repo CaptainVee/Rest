@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils import timezone
+
 
 from product.models import Product
 # Create your models here.
@@ -17,3 +19,9 @@ class Profile(models.Model):
 	@property
 	def product(self):
 		return self.product_set.all().order_by('-created_at')
+
+
+class Chat(models.Model):
+	author = models.ForeignKey(Profile, on_delete=models.CASCADE)
+	content = models.TextField()
+	timestamp = models.DateTimeField(default=timezone.now)

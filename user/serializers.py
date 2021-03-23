@@ -1,7 +1,7 @@
 from rest_framework.serializers import ModelSerializer, SerializerMethodField
 
 from django.contrib.auth.models import User
-from user.models import Profile
+from user.models import Profile, Chat
 from product.models import Product
 from product.serializers import ProductListSerializer
 
@@ -23,6 +23,7 @@ class UserDetailSerializer(ModelSerializer):
 	user = SerializerMethodField()
 	email = SerializerMethodField()
 	product = SerializerMethodField()
+	chat = SerializerMethodField()
 
 	class Meta:		
 		model = Profile
@@ -38,6 +39,11 @@ class UserDetailSerializer(ModelSerializer):
 		product_queryset = Product.objects.filter(user=obj.id)
 		product = ProductListSerializer(product_queryset, many=True).data
 		return product
+
+	def get_chat(self, obj):
+		chat_queryset = Chat.objects.filter(author=obj.id)
+		chats = ChatSerializer(chat_queryset, many=True).data
+		return chats
 
 class UserCreateSerializer(ModelSerializer):
     email = EmailField(label='Email Address')
@@ -121,3 +127,8 @@ class UserLoginSerializer(ModelSerializer):
         # if user_qs.exists():
         #     raise ValidationError("This user has already registered.")
         return data
+
+class ChatSerializer(ModelSerializer):
+	class Meta:
+		model = Chat
+		fields = ['author', 'content', 'timestamp',]

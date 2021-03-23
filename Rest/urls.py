@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from user.views import  UserDetailView, UserCreateAPIView, UserLoginAPIView
+from user.views import  UserDetailView, UserCreateAPIView, UserLoginAPIView, ChatCreateView
 from django.conf import settings
 from django.conf.urls.static import static
 from rest_framework_swagger.views import get_swagger_view
@@ -30,6 +30,7 @@ urlpatterns = [
     path('rest-auth/', include('rest_auth.urls')),
     path('admin/', admin.site.urls),
     path('profile/<int:pk>/', UserDetailView.as_view(), name='profile'),
+    path('chat/', ChatCreateView.as_view(), name='chat'),
     # path('login/', UserLoginAPIView.as_view(), name='login'),
     path('register/', UserCreateAPIView.as_view(), name='register'),
     path('login/', obtain_auth_token, name='obtain-token'),

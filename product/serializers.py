@@ -45,9 +45,14 @@ class ProductDetailSerializer(ModelSerializer):
 	topics = fields.MultipleChoiceField(TAGS)
 	comments = SerializerMethodField()
 	total_comments = SerializerMethodField()
+	user = SerializerMethodField()
+	user_profile = HyperlinkedIdentityField(view_name='profile', lookup_field='pk')
 	class Meta:
 		model = Product
 		fields = (
+			'id',
+			'user',
+			'user_profile',
 			'url',
 			'name',
 			'topics',
@@ -62,13 +67,15 @@ class ProductDetailSerializer(ModelSerializer):
 			'created_at',
 			'total_comments',
 			'comments',
-
 			)
 
 	def get_comments(self, obj):
 		queryset = Comment.objects.filter(product=obj.id)
 		comments = CommentSerializer(queryset, many=True).data
 		return comments
+
+	def get_user(self, obj):
+		return (obj.user.username)
 
 	def get_total_comments(self, obj):
 		''' this function gets the total replies and comments 
