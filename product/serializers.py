@@ -75,7 +75,7 @@ class ProductDetailSerializer(ModelSerializer):
 		return comments
 
 	def get_user(self, obj):
-		return (obj.user.username)
+		return (obj.user.user_id)
 
 	def get_total_comments(self, obj):
 		''' this function gets the total replies and comments 
