@@ -23,7 +23,7 @@ class UserDetailSerializer(ModelSerializer):
 	user = SerializerMethodField()
 	email = SerializerMethodField()
 	product = SerializerMethodField()
-	chat = SerializerMethodField()
+	# chat = SerializerMethodField()
 
 	class Meta:		
 		model = Profile
@@ -40,10 +40,10 @@ class UserDetailSerializer(ModelSerializer):
 		product = ProductListSerializer(product_queryset, many=True).data
 		return product
 
-	def get_chat(self, obj):
-		chat_queryset = Chat.objects.filter(author=obj.id)
-		chats = ChatSerializer(chat_queryset, many=True).data
-		return chats
+	# def get_chat(self, obj):
+	# 	chat_queryset = Chat.objects.filter(author=obj.id)
+	# 	chats = ChatSerializer(chat_queryset, many=True).data
+	# 	return chats
 
 class UserCreateSerializer(ModelSerializer):
     email = EmailField(label='Email Address')
