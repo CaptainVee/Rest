@@ -32,7 +32,7 @@ class UserSerializer(ModelSerializer):
 	class Meta:
 		model = User
 		fields = (
-			'id'
+			'id',
 			)
 
 class Product(models.Model):
