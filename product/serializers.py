@@ -20,6 +20,7 @@ class ProductListSerializer(ModelSerializer):
 			'caption',
 			'thumbnail',
 			'total_upvotes',
+			'upvoters',
 			'id',
 			)
 
@@ -39,6 +40,7 @@ class ProductListSerializer(ModelSerializer):
 		overall_comment = total_comments + total_replies
 
 		return overall_comment
+
 
 
 class ProductDetailSerializer(ModelSerializer):

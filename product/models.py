@@ -26,6 +26,16 @@ STATUS = (
     ('I', 'In_progress')
 )
 
+from rest_framework import fields, serializers
+from rest_framework.serializers import ModelSerializer 
+class UserSerializer(ModelSerializer):
+	class Meta:
+		model = User
+		fields = (
+			'username',
+			'id'
+			)
+
 class Product(models.Model):
 	name = models.CharField(max_length=100)
 	url = models.CharField(max_length=100)
@@ -47,3 +57,10 @@ class Product(models.Model):
 	@property	
 	def total_upvotes(self):
 		return self.upvote.count()
+
+	@property	
+	def upvoters(self):
+		queryset = self.upvote.all()
+		voters = UserSerializer(queryset, many=True).data
+		return voters
+
