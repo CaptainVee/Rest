@@ -33,7 +33,7 @@ urlpatterns = [
     path('chat/', ChatCreateView.as_view(), name='chat'),
     # path('login/', UserLoginAPIView.as_view(), name='login'),
     path('register/', UserCreateAPIView.as_view(), name='register'),
-    path('login/', obtain_auth_token, name='obtain-token'),
+    path('login/', UserLoginAPIView.as_view(), name='login'),
     # path('rest-auth/registration/', include('rest_auth.registration.urls')),    
     # path('password-reset-confirm/<uidb64>/<token>/', rest_view.PasswordResetConfirmView.as_view(),
     # 	name='password_reset_confirm'),

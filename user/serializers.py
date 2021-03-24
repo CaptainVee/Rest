@@ -106,6 +106,7 @@ class UserCreateSerializer(ModelSerializer):
 
 
 class UserLoginSerializer(ModelSerializer):
+    id = SerializerMethodField()
     token = CharField(allow_blank=True, read_only=True)
     username = CharField()
     email = EmailField(label='Email Address')
@@ -127,6 +128,11 @@ class UserLoginSerializer(ModelSerializer):
         # if user_qs.exists():
         #     raise ValidationError("This user has already registered.")
         return data
+
+    # def get_id(self, obj):
+    #     user = Profile.objects.get(user=instance)
+    #     print(user)
+    #     return user
 
 class ChatSerializer(ModelSerializer):
 	class Meta:
