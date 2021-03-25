@@ -12,6 +12,7 @@ class CommentSerializer(ModelSerializer):
 	class Meta:
 		model = Comment
 		fields = (
+			'id',
 			'user',
 			'content',
 			'timestamp',
@@ -28,7 +29,12 @@ class CommentSerializer(ModelSerializer):
 		queryset = ReplyComment.objects.filter(comment=obj.id)
 		return queryset.count()
 
-
+class CommentCreateSerializer(ModelSerializer):
+	class Meta:
+		model = Comment
+		fields =(
+			'content',
+			)
 
 class ReplyCommentSerializer(ModelSerializer):
 	class Meta:
@@ -36,37 +42,15 @@ class ReplyCommentSerializer(ModelSerializer):
 		fields = (
 			'timestamp',
 			'content',
+			'user',
 			)
 
-
-class CommentDetailSerializer(ModelSerializer):
-	reply_count = SerializerMethodField()
-	replies = SerializerMethodField()
+class ReplyCommentCreateSerializer(ModelSerializer):
 	class Meta:
-		model = Comment
+		model = ReplyComment
 		fields = (
-			'content_type',
-			'object_id',
 			'content',
-			'id',
-			'replies'
 			)
-
-	def get_replies(self, obj):
-		if obj.is_parent:
-			return CommentChildSerializer(obj.children(), many=True).data
-		return None
-
-	def get_reply_count(self, obj):
-		if obj.is_parent:
-			return obj.children().count()
-		return 0
-
-
-
-
-
-
 
 
 

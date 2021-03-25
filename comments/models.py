@@ -20,6 +20,7 @@ class Comment(models.Model):
 		return self.content
 
 class ReplyComment(models.Model):
+	user = models.ForeignKey(User, on_delete=models.CASCADE)
 	comment = models.ForeignKey(Comment, on_delete=models.CASCADE)
 	timestamp = models.DateTimeField(auto_now_add=True)
 	content = models.TextField()
