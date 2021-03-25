@@ -33,7 +33,7 @@ The various endpoint which you can call are ....
   
 
 5. product/create/  
-    POST:{
+    POST:
       "name":           "string"        #name of product  
       "url" :           "string"        #url of the company website  
       "caption" :       "string"        # a short description about the company (not more than 200 characters).  
@@ -66,7 +66,23 @@ The various endpoint which you can call are ....
 7. upvote/{ID}/ 
       POST:
        returns the home url 
-        
-        
+       
+8. comment/create/
+      POST:
+         "pk" : "string"  ## THIS SHOULD BE PASSED AS A QUERY PARAM and not on the body form. contains the id of the P
+         "content" : "string" # this should be passed in the body form. contains comment
+         
+         returns the content of the comment
+
+9. comment/reply/create/
+      POST:
+         "pk" : "string"  ## THIS SHOULD BE PASSED AS A QUERY PARAM and not on the body form. contains the id of the comment
+         "content" : "string" # this should be passed in the body form. contains the reply to comment
                                                                     
       
+10. profile/{ID}/
+      GET:
+         returns details about the profile
+      PATCH:
+         "user" : "string" # username
+         "picture" : .jpg file  # profile picture
