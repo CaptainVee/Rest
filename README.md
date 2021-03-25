@@ -69,9 +69,8 @@ The various endpoint which you can call are ....
        
 8. comment/create/
       POST:
-         "pk" : "string"  ## THIS SHOULD BE PASSED AS A QUERY PARAM and not on the body form. contains the id of the P
+         "pk" : "string"  ## THIS SHOULD BE PASSED AS A QUERY PARAM and not on the body form. contains the id of the Product
          "content" : "string" # this should be passed in the body form. contains comment
-         
          returns the content of the comment
 
 9. comment/reply/create/
