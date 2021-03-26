@@ -8,12 +8,13 @@ from rest_framework import fields, serializers
 
 class CommentSerializer(ModelSerializer):
 	replies = SerializerMethodField()
+	username = SerializerMethodField()
 	total_replies = SerializerMethodField()
 	class Meta:
 		model = Comment
 		fields = (
 			'id',
-			'user',
+			'username',
 			'content',
 			'timestamp',
 			'total_replies',
@@ -29,6 +30,9 @@ class CommentSerializer(ModelSerializer):
 		queryset = ReplyComment.objects.filter(comment=obj.id)
 		return queryset.count()
 
+	def get_username(self, obj):
+		return (obj.user.username)
+
 class CommentCreateSerializer(ModelSerializer):
 	class Meta:
 		model = Comment
@@ -37,13 +41,17 @@ class CommentCreateSerializer(ModelSerializer):
 			)
 
 class ReplyCommentSerializer(ModelSerializer):
+	username = SerializerMethodField()
 	class Meta:
 		model = ReplyComment
 		fields = (
 			'timestamp',
 			'content',
-			'user',
+			'username',
 			)
+
+	def get_username(self, obj):
+		return (obj.user.username)
 
 class ReplyCommentCreateSerializer(ModelSerializer):
 	class Meta:
