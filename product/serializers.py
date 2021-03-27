@@ -22,6 +22,7 @@ class ProductListSerializer(ModelSerializer):
 			'total_upvotes',
 			'upvoters',
 			'id',
+                        'launch_date',
 			)
 
 	def get_comments(self, obj):
