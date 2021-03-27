@@ -36,6 +36,8 @@ class CommentCreateView(CreateAPIView):
 
     def perform_create(self, serializer):
         product = get_object_or_404(Product, pk=self.request.query_params['pk'])
+        # print(product.total_upvotes)
+        # print(stop)
         serializer.save(user=self.request.user, product=product)
 
 class ReplyCreateView(CreateAPIView):

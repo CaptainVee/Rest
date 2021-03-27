@@ -63,3 +63,7 @@ class Product(models.Model):
 		voters = UserSerializer(queryset, many=True).data
 		return voters
 
+	# @property	
+	# def comment(self):
+	# 	queryset = Comment.objects.filter(product=self)
+	# 	return queryset

@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.shortcuts import get_object_or_404
 from django.db.models import Q
-
+import json
 from django.contrib.auth.models import User
 from .models import Product
 from django.urls import reverse
@@ -60,5 +60,5 @@ class Upvote(APIView):
 			product.upvote.remove(user.id)
 		else:
 			product.upvote.add(user.id)
-		context = {'home-url':reverse('home')}
+		context = {'upvoters': product.upvoters}
 		return Response (context)
