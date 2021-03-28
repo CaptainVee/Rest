@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'allauth',
     'allauth.account',
-    'comments.apps.CommentsConfig',
+    # 'comments.apps.CommentsConfig',
     'product.apps.ProductConfig',
     'user.apps.UserConfig',
     'rest_framework',

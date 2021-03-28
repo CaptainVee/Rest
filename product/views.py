@@ -3,7 +3,7 @@ from django.shortcuts import get_object_or_404
 from django.db.models import Q
 import json
 from django.contrib.auth.models import User
-from .models import Product
+from .models import Product, Comment, ReplyComment
 from django.urls import reverse
 from user.models import Profile
 from django.http import JsonResponse
@@ -23,6 +23,7 @@ from rest_framework.generics import (
     )
 
 from .serializers import ProductListSerializer, ProductDetailSerializer
+from .serializers import CommentSerializer, ReplyCommentCreateSerializer, CommentCreateSerializer
 from django.utils import timezone
 from django.http import HttpResponseRedirect
 
@@ -62,3 +63,27 @@ class Upvote(APIView):
 			product.upvote.add(user.id)
 		context = {'upvoters': product.upvoters}
 		return Response (context)
+
+
+# Create your views here.
+
+class CommentListView(ListAPIView):
+	serializer_class = CommentSerializer
+	queryset = Comment.objects.all()
+
+class CommentCreateView(APIView):
+	def post(self, request, *args, **kwargs):
+		product = get_object_or_404(Product, pk=self.request.query_params['pk'])
+		comment = Comment.objects.create(user=self.request.user,
+										 product=product,
+										 content=self.request.data['content'])
+		serializer = CommentSerializer(product.comment, many=True)
+		return Response (serializer.data)
+
+class ReplyCreateView(CreateAPIView):
+    serializer_class = ReplyCommentCreateSerializer
+    queryset = ReplyComment.objects.all()
+
+    def perform_create(self, serializer):
+        comment = get_object_or_404(Comment, pk=self.request.query_params['pk'])
+        serializer.save(user=self.request.user, comment=comment)

@@ -26,7 +26,7 @@ from rest_framework.authtoken.views import obtain_auth_token
 
 urlpatterns = [
     path('', include('product.urls')),
-    path('comment/', include('comments.urls')),
+    # path('comment/', include('comments.urls')),
     path('rest-auth/', include('rest_auth.urls')),
     path('admin/', admin.site.urls),
     path('profile/<int:pk>/', UserDetailView.as_view(), name='profile'),
