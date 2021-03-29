@@ -23,7 +23,7 @@ from rest_framework.generics import (
     )
 
 from .serializers import ProductListSerializer, ProductDetailSerializer
-from .serializers import CommentSerializer, ReplyCommentCreateSerializer, CommentCreateSerializer
+from .serializers import CommentSerializer, ReplyCommentSerializer, CommentCreateSerializer
 from django.utils import timezone
 from django.http import HttpResponseRedirect
 
@@ -80,10 +80,11 @@ class CommentCreateView(APIView):
 		serializer = CommentSerializer(product.comment, many=True)
 		return Response (serializer.data)
 
-class ReplyCreateView(CreateAPIView):
-    serializer_class = ReplyCommentCreateSerializer
-    queryset = ReplyComment.objects.all()
-
-    def perform_create(self, serializer):
-        comment = get_object_or_404(Comment, pk=self.request.query_params['pk'])
-        serializer.save(user=self.request.user, comment=comment)
+class ReplyCreateView(APIView):
+	def post(self, request, *args, **kwargs):
+		comment = get_object_or_404(Comment, pk=self.request.query_params['pk'])
+		reply = ReplyComment.objects.create(user=self.request.user,
+										 comment=comment,
+										 content=self.request.data['content'])
+		serializer = ReplyCommentSerializer(comment.reply, many=True)
+		return Response (serializer.data)

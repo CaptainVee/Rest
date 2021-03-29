@@ -22,7 +22,7 @@ class ProductListSerializer(ModelSerializer):
 			'total_upvotes',
 			'upvoters',
 			'id',
-                        'launch_date',
+			'launch_date',
 			)
 
 	def get_comments(self, obj):
@@ -148,6 +148,7 @@ class ReplyCommentSerializer(ModelSerializer):
 			'timestamp',
 			'content',
 			'username',
+			'comment',
 			)
 
 	def get_username(self, obj):

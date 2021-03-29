@@ -83,6 +83,11 @@ class Comment(models.Model):
 	def __str__(self):
 		return self.content
 
+	@property	
+	def reply(self):
+		queryset = ReplyComment.objects.filter(comment=self)
+		return queryset
+
 class ReplyComment(models.Model):
 	user = models.ForeignKey(User, on_delete=models.CASCADE)
 	comment = models.ForeignKey(Comment, on_delete=models.CASCADE)
