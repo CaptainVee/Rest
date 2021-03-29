@@ -82,9 +82,10 @@ class CommentCreateView(APIView):
 
 class ReplyCreateView(APIView):
 	def post(self, request, *args, **kwargs):
+		product = get_object_or_404(Product, pk=self.request.query_params['product'])
 		comment = get_object_or_404(Comment, pk=self.request.query_params['pk'])
 		reply = ReplyComment.objects.create(user=self.request.user,
 										 comment=comment,
 										 content=self.request.data['content'])
-		serializer = ReplyCommentSerializer(comment.reply, many=True)
+		serializer = CommentSerializer(product.comment, many=True)
 		return Response (serializer.data)
